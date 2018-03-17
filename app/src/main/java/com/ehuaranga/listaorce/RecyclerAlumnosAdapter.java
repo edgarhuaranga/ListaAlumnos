@@ -2,6 +2,7 @@ package com.ehuaranga.listaorce;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -20,15 +21,21 @@ public class RecyclerAlumnosAdapter extends RecyclerView.Adapter<RecyclerAlumnos
     Context context;
     ArrayList<AlumnoUNI> alumnosUNI;
 
+    public RecyclerAlumnosAdapter(ArrayList<AlumnoUNI> alumnosUNI, Context context){
+        this.alumnosUNI = alumnosUNI;
+        this.context = context;
+    }
 
     @Override
     public RecyclerAlumnosAdapter.AlumnoViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return null;
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.vista_alumno, parent, false);
+        return new RecyclerAlumnosAdapter.AlumnoViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(RecyclerAlumnosAdapter.AlumnoViewHolder holder, int position) {
 
+        holder.textViewCodigo.setText(alumnosUNI.get(position).getCodigo());
     }
 
     @Override
@@ -41,9 +48,14 @@ public class RecyclerAlumnosAdapter extends RecyclerView.Adapter<RecyclerAlumnos
         ImageView imagenOrce;
         TextView textViewNombre;
         TextView textViewFacultad;
+        TextView textViewCodigo;
 
         public AlumnoViewHolder(View itemView) {
             super(itemView);
+            imagenOrce = itemView.findViewById(R.id.imageview_foto);
+            textViewNombre = itemView.findViewById(R.id.textview_nombre);
+            textViewFacultad = itemView.findViewById(R.id.textview_facultad);
+            textViewCodigo = itemView.findViewById(R.id.textview_codigo);
         }
     }
 }
