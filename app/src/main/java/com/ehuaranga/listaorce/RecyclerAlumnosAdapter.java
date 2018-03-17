@@ -40,7 +40,7 @@ public class RecyclerAlumnosAdapter extends RecyclerView.Adapter<RecyclerAlumnos
     }
 
     @Override
-    public void onBindViewHolder(RecyclerAlumnosAdapter.AlumnoViewHolder holder, int position) {
+    public void onBindViewHolder(final RecyclerAlumnosAdapter.AlumnoViewHolder holder, int position) {
 
         AlumnoUNI alumnoUNI = alumnosUNI.get(position);
         holder.textViewCodigo.setText(alumnoUNI.getCodigo());
@@ -57,6 +57,10 @@ public class RecyclerAlumnosAdapter extends RecyclerView.Adapter<RecyclerAlumnos
             @Override
             public void onResponse(String response) {
                 // Trabajar el HTML
+                int index_nombre = response.indexOf("Nombres:")+"Nombres:</td><t".length();
+                String nombre = response.substring(index_nombre,index_nombre+ 20) ;
+                holder.textViewNombre.setText(nombre);
+
             }
         }, new Response.ErrorListener() {
             @Override
