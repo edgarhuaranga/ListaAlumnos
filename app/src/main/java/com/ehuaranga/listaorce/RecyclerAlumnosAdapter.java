@@ -9,6 +9,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.ehuaranga.listaorce.Model.AlumnoUNI;
 
 import java.util.ArrayList;
@@ -36,6 +37,10 @@ public class RecyclerAlumnosAdapter extends RecyclerView.Adapter<RecyclerAlumnos
     public void onBindViewHolder(RecyclerAlumnosAdapter.AlumnoViewHolder holder, int position) {
 
         holder.textViewCodigo.setText(alumnosUNI.get(position).getCodigo());
+
+        Glide.with(holder.imagenOrce.getContext())
+                .load("http://www.orce.uni.edu.pe/fotosuni/0060"+alumnosUNI.get(position).getCodigo()+".jpg")
+                .into(holder.imagenOrce);
     }
 
     @Override
