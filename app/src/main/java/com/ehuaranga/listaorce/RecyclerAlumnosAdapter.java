@@ -9,6 +9,12 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.ehuaranga.listaorce.Model.AlumnoUNI;
 
@@ -36,11 +42,29 @@ public class RecyclerAlumnosAdapter extends RecyclerView.Adapter<RecyclerAlumnos
     @Override
     public void onBindViewHolder(RecyclerAlumnosAdapter.AlumnoViewHolder holder, int position) {
 
-        holder.textViewCodigo.setText(alumnosUNI.get(position).getCodigo());
+        AlumnoUNI alumnoUNI = alumnosUNI.get(position);
+        holder.textViewCodigo.setText(alumnoUNI.getCodigo());
 
         Glide.with(holder.imagenOrce.getContext())
-                .load("http://www.orce.uni.edu.pe/fotosuni/0060"+alumnosUNI.get(position).getCodigo()+".jpg")
+                .load("http://www.orce.uni.edu.pe/fotosuni/0060"+alumnoUNI.getCodigo()+".jpg")
                 .into(holder.imagenOrce);
+
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        String infoAlumnoUNI = "http://www.orce.uni.edu.pe/detaalu.php?id="+alumnoUNI.getCodigo()+"&op=detalu";
+
+
+        StringRequest request = new StringRequest(Request.Method.GET, infoAlumnoUNI, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                // Trabajar el HTML
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                //Mostrar algun error
+            }
+        });
+        requestQueue.add(request);
     }
 
     @Override
